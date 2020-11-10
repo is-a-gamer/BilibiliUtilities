@@ -1,0 +1,27 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BilibiliUtilities.Live", "BilibiliUtilities.Live\BilibiliUtilities.Live.csproj", "{80E78F59-81B6-41FD-B2E2-3A6A689ADD4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BilibiliUtilities.Utils", "BilibiliUtilities.Utils\BilibiliUtilities.Utils.csproj", "{5372403D-0DA1-4E8F-A7F5-7E39BEA9FC6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BilibiliUtilities.Test", "BilibiliUtilities.Test\BilibiliUtilities.Test.csproj", "{97571412-F61C-4944-8CEC-CA407BD000C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80E78F59-81B6-41FD-B2E2-3A6A689ADD4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E78F59-81B6-41FD-B2E2-3A6A689ADD4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E78F59-81B6-41FD-B2E2-3A6A689ADD4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E78F59-81B6-41FD-B2E2-3A6A689ADD4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5372403D-0DA1-4E8F-A7F5-7E39BEA9FC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5372403D-0DA1-4E8F-A7F5-7E39BEA9FC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5372403D-0DA1-4E8F-A7F5-7E39BEA9FC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5372403D-0DA1-4E8F-A7F5-7E39BEA9FC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97571412-F61C-4944-8CEC-CA407BD000C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97571412-F61C-4944-8CEC-CA407BD000C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97571412-F61C-4944-8CEC-CA407BD000C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97571412-F61C-4944-8CEC-CA407BD000C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
