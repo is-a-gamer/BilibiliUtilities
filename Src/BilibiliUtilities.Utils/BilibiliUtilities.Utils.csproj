@@ -2,11 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>0.0.1</PackageVersion>
         <Title>BilibiliUtilities-Utils</Title>
         <Description>Basic functional support for bilibilibiliutilities and users</Description>
         <PackageProjectUrl>https://github.com/is-a-gamer/BilibiliUtilities</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/is-a-gamer/BilibiliUtilities/blob/main/LICENSE</PackageLicenseUrl>
+        <PackageTags>Bilibili</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
