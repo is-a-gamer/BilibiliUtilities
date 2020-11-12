@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
@@ -12,6 +11,7 @@ using BilibiliUtilities.Live.Lib;
 using BitConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using BilibiliUtilities.Utils.LiveUtils;
 
 namespace BilibiliUtilities.Live
 {
@@ -19,10 +19,7 @@ namespace BilibiliUtilities.Live
     {
         //直播页面的房间ID
         private int _shotRoomId;
-
-        //10秒无法连接判定连接失败
-        private readonly HttpClient _httpClient = new HttpClient {Timeout = TimeSpan.FromSeconds(10)};
-
+        
         //真正的直播间ID
         private int _roomId;
         private readonly TcpClient _tcpClient = new TcpClient();
@@ -62,42 +59,21 @@ namespace BilibiliUtilities.Live
         /// <returns></returns>
         public async Task<bool> ConnectAsync()
         {
-            var tmpData =
-                JObject.Parse(
-                    await _httpClient.GetStringAsync(
-                        $"https://api.live.bilibili.com/room/v1/Room/room_init?id={_shotRoomId}"));
-            if (int.Parse(tmpData["code"].ToString()) != 0)
+            _roomId = await RoomUtil.GetLongRoomId(_shotRoomId);
+            if (_roomId == 0)
             {
                 return false;
             }
-
-            _roomId = int.Parse(tmpData["data"]["room_id"].ToString());
-            tmpData = JObject.Parse(await _httpClient.GetStringAsync(
-                $"https://api.live.bilibili.com/room/v1/Danmu/getConf?room_id={_roomId}&platform=pc&player=web"));
-            //连接的令牌
-            var token = tmpData["data"]["token"].ToString();
-            //解析域名,拿取IP地址,用于连接
-            var chatHost = tmpData["data"]["host"].ToString();
-            var ips = await Dns.GetHostAddressesAsync(chatHost);
-            //连接的端口
-            var chatPort = int.Parse(tmpData["data"]["port"].ToString());
-            Random random = new Random();
-            //随机一个选择域名解析出来的IP,负载均衡
-            await _tcpClient.ConnectAsync(ips[random.Next(ips.Length)], chatPort);
-            if (!_tcpClient.Connected)
+            var token = await RoomUtil.GetRoomTokenByShortRoomId(_shotRoomId);
+            if (token.Equals(""))
             {
-                //这是错误处理的代码
                 return false;
             }
-
+            if (!await RoomUtil.ConnectRoomByShortRoomId(_tcpClient, _shotRoomId))
+            {
+                return false;
+            }
             _roomStream = _tcpClient.GetStream();
-            //判断能不能写入数据
-            if (!_roomStream.CanWrite)
-            {
-                //这是错误处理的代码
-                return false;
-            }
-
             if (!await SendJoinMsgAsync(token))
             {
                 //这是错误处理的代码
@@ -211,9 +187,10 @@ namespace BilibiliUtilities.Live
                 {
                     json = JObject.Parse(tmpData);
                 }
-                catch (JsonReaderException e)
+                catch (Exception e)
                 {
-                    Debug.WriteLine(tmpData);
+                    Debug.WriteLine(e);
+                    throw e;
                 }
                 if (!"DANMU_MSG".Equals(json["cmd"].ToString()) && !"SEND_GIFT".Equals(json["cmd"].ToString()))
                 {

@@ -2,11 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>0.0.1</PackageVersion>
+        <Title>BilibiliUtilities-Live</Title>
+        <Description>Provide support for real-time message distribution in bilibili live room</Description>
+        <PackageProjectUrl>https://github.com/is-a-gamer/BilibiliUtilities</PackageProjectUrl>
+        <PackageTags>Bilibili</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="EndianBitConverter" Version="1.1.0" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BilibiliUtilities.Utils\BilibiliUtilities.Utils.csproj" />
     </ItemGroup>
 
 </Project>
