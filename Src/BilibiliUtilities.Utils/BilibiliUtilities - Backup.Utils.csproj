@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -7,18 +7,12 @@
         <Description>Basic functional support for bilibilibiliutilities and users</Description>
         <PackageProjectUrl>https://github.com/is-a-gamer/BilibiliUtilities</PackageProjectUrl>
         <PackageTags>Bilibili</PackageTags>
-        <LangVersion>7.3</LangVersion>
-        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-        <Version>0.03</Version>
-        <TargetFrameworks>net471;netstandard2.0;netcoreapp3.1</TargetFrameworks>
+        <LangVersion>8</LangVersion>
+        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net471'" />
     </ItemGroup>
 
 </Project>
