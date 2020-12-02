@@ -1,5 +1,4 @@
 ﻿using System;
-using BilibiliUtilities.Live.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BilibiliUtilities.Utils", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BilibiliUtilities.Test", "BilibiliUtilities.Test\BilibiliUtilities.Test.csproj", "{97571412-F61C-4944-8CEC-CA407BD000C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndianBitConverter", "EndianBitConverter\EndianBitConverter.csproj", "{39070DFB-3AC8-4B56-AF4B-1179EDEB038A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,5 +25,9 @@ Global
 		{97571412-F61C-4944-8CEC-CA407BD000C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97571412-F61C-4944-8CEC-CA407BD000C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97571412-F61C-4944-8CEC-CA407BD000C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39070DFB-3AC8-4B56-AF4B-1179EDEB038A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39070DFB-3AC8-4B56-AF4B-1179EDEB038A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39070DFB-3AC8-4B56-AF4B-1179EDEB038A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39070DFB-3AC8-4B56-AF4B-1179EDEB038A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

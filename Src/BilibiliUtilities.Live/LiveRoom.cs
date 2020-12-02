@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using BilibiliUtilities.Live.Lib;
-using BitConverter;
+using EndianBitConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using BilibiliUtilities.Utils.LiveUtils;
@@ -133,7 +133,7 @@ namespace BilibiliUtilities.Live
                     //给服务器发送心跳信息后的回应信息,所带的数据是直播间的观看人数(人气值)
                     dataBuffer = new byte[danmuHead.MessageLength()];
                     await _roomStream.ReadAsync(dataBuffer, 0, danmuHead.MessageLength());
-                    var audiences = EndianBitConverter.BigEndian.ToInt32(dataBuffer, 0);
+                    var audiences = EndianBitConverter.EndianBitConverter.BigEndian.ToInt32(dataBuffer, 0);
                     _messageHandler.AudiencesHandlerAsync(audiences);
                     continue;
                 }
@@ -248,11 +248,11 @@ namespace BilibiliUtilities.Live
 
             var buffer = new byte[packageLength];
             var ms = new MemoryStream(buffer);
-            await ms.WriteAsync(EndianBitConverter.BigEndian.GetBytes(buffer.Length), 0, 4);
-            await ms.WriteAsync(EndianBitConverter.BigEndian.GetBytes(headLength), 0, 2);
-            await ms.WriteAsync(EndianBitConverter.BigEndian.GetBytes(version), 0, 2);
-            await ms.WriteAsync(EndianBitConverter.BigEndian.GetBytes(action), 0, 4);
-            await ms.WriteAsync(EndianBitConverter.BigEndian.GetBytes(param), 0, 4);
+            await ms.WriteAsync(EndianBitConverter.EndianBitConverter.BigEndian.GetBytes(buffer.Length), 0, 4);
+            await ms.WriteAsync(EndianBitConverter.EndianBitConverter.BigEndian.GetBytes(headLength), 0, 2);
+            await ms.WriteAsync(EndianBitConverter.EndianBitConverter.BigEndian.GetBytes(version), 0, 2);
+            await ms.WriteAsync(EndianBitConverter.EndianBitConverter.BigEndian.GetBytes(action), 0, 4);
+            await ms.WriteAsync(EndianBitConverter.EndianBitConverter.BigEndian.GetBytes(param), 0, 4);
             if (data.Length > 0)
             {
                 await ms.WriteAsync(data, 0, data.Length);

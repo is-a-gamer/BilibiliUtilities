@@ -1,5 +1,4 @@
 using System;
-using BitConverter;
 
 namespace BilibiliUtilities.Live.Lib
 {
@@ -48,11 +47,11 @@ namespace BilibiliUtilities.Live.Lib
 
             return new DanmuHead
             {
-                PacketLength = EndianBitConverter.BigEndian.ToInt32(buffer, 0),
-                HeaderLength = EndianBitConverter.BigEndian.ToInt16(buffer, 4),
-                Version = EndianBitConverter.BigEndian.ToInt16(buffer, 6),
-                Action = EndianBitConverter.BigEndian.ToInt32(buffer, 8),
-                Parameter = EndianBitConverter.BigEndian.ToInt32(buffer, 12),
+                PacketLength = EndianBitConverter.EndianBitConverter.BigEndian.ToInt32(buffer, 0),
+                HeaderLength = EndianBitConverter.EndianBitConverter.BigEndian.ToInt16(buffer, 4),
+                Version = EndianBitConverter.EndianBitConverter.BigEndian.ToInt16(buffer, 6),
+                Action = EndianBitConverter.EndianBitConverter.BigEndian.ToInt32(buffer, 8),
+                Parameter = EndianBitConverter.EndianBitConverter.BigEndian.ToInt32(buffer, 12),
             };
         }
 
