@@ -1,4 +1,4 @@
-﻿﻿namespace BilibiliUtilities.Live.Message
+﻿namespace BilibiliUtilities.Live.Message
 {
     public class BaseMessage
     {

@@ -1,17 +1,21 @@
 ﻿using System;
 using BilibiliUtilities.Live;
-namespace BilibiliUtilities.Test
+using Xunit;
+
+namespace BilibiliUtilities.Test.Tests
 {
-    internal static class Program
+    public class LiveTest
     {
-        public static void Main(string[] args)
+
+        [Fact]
+        public static void TestLive()
         {
             Console.WriteLine("直播间房间号:");
             Start();
             Console.ReadLine();
         }
 
-        private static async void Start()
+        public static async void Start()
         {
             var liveHandler = new LiveLib.LiveHandler();
             var sroomid = Console.ReadLine();

@@ -32,3 +32,6 @@ dotnet add package BilibiliUtilities.Utils --version 0.0.1
 Bilibili UID:27609142
 
 代码缓慢更新中,非常慢
+
+___
+`EndianBitConverter` 来自 https://github.com/davidrea-MS/BitConverter

@@ -9,8 +9,10 @@ namespace BilibiliUtilities.Test.LiveLib
         //可以放置自己的参数用来使用,比如WPF的window对象
         public bool Param;
 
+        
         public async Task DanmuMessageHandlerAsync(DanmuMessage danmuMessage)
         {
+            
             Console.WriteLine($"发送者:{danmuMessage.Username},内容:{danmuMessage.Content}");
         }
 

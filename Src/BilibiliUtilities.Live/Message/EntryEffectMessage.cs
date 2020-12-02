@@ -1,5 +1,4 @@
 using System;
-using BitConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
