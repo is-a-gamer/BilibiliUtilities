@@ -3,7 +3,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace EndianBitConverter
+namespace BilibiliUtilities.EndianBitConverter
 {
     /// <summary>
     /// A BitConverter with a specific endianness that converts base data types to an array of bytes, and an array of bytes to base data types, regardless of

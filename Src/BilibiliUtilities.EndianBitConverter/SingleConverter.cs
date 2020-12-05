@@ -2,7 +2,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace EndianBitConverter
+namespace BilibiliUtilities.EndianBitConverter
 {
     // Converts between Single (float) and Int32 (int), as System.BitConverter does not have a method to do this in all .NET versions.
     // A union is used instead of an unsafe pointer cast so we don't have to worry about the trusted environment implications.

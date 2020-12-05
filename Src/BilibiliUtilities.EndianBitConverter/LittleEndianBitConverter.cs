@@ -1,6 +1,6 @@
 ﻿// Copyright (C) Microsoft Corporation. All rights reserved.
 
-namespace EndianBitConverter
+namespace BilibiliUtilities.EndianBitConverter
 {
     /// <summary>
     /// A little-endian BitConverter that converts base data types to an array of bytes, and an array of bytes to base data types. All conversions are in

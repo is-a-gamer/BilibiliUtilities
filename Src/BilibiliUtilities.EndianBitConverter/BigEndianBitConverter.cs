@@ -1,12 +1,12 @@
 ﻿// Copyright (C) Microsoft Corporation. All rights reserved.
 
-namespace EndianBitConverter
+namespace BilibiliUtilities.EndianBitConverter
 {
     /// <summary>
     /// A big-endian BitConverter that converts base data types to an array of bytes, and an array of bytes to base data types. All conversions are in
     /// big-endian format regardless of machine architecture.
     /// </summary>
-    internal class BigEndianBitConverter : EndianBitConverter
+    internal class BigEndianBitConverter : global::BilibiliUtilities.EndianBitConverter.EndianBitConverter
     {
         // Instance available from EndianBitConverter.BigEndian
         internal BigEndianBitConverter() { }

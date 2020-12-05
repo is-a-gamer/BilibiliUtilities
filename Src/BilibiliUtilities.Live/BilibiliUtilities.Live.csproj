@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>0.0.2</PackageVersion>
+        <PackageVersion>0.0.4</PackageVersion>
         <Title>BilibiliUtilities-Live</Title>
         <Description>Provide support for real-time message distribution in bilibili live room</Description>
         <PackageProjectUrl>https://github.com/is-a-gamer/BilibiliUtilities</PackageProjectUrl>
@@ -16,11 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BilibiliUtilities.EndianBitConverter\BilibiliUtilities.EndianBitConverter.csproj" />
       <ProjectReference Include="..\BilibiliUtilities.Utils\BilibiliUtilities.Utils.csproj" />
-      <ProjectReference Include="..\EndianBitConverter\EndianBitConverter.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="System" Condition="'$(TargetFramework)' == 'net471'" />
       <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net471'" />
     </ItemGroup>
 

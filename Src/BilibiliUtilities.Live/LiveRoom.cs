@@ -8,7 +8,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using BilibiliUtilities.Live.Lib;
-using EndianBitConverter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using BilibiliUtilities.Utils.LiveUtils;
@@ -19,7 +18,7 @@ namespace BilibiliUtilities.Live
     {
         //直播页面的房间ID
         private int _shotRoomId;
-        
+
         //真正的直播间ID
         private int _roomId;
         private readonly TcpClient _tcpClient = new TcpClient();
@@ -64,15 +63,18 @@ namespace BilibiliUtilities.Live
             {
                 return false;
             }
+
             var token = await RoomUtil.GetRoomTokenByShortRoomId(_shotRoomId);
             if (token.Equals(""))
             {
                 return false;
             }
+
             if (!await RoomUtil.ConnectRoomByShortRoomId(_tcpClient, _shotRoomId))
             {
                 return false;
             }
+
             _roomStream = _tcpClient.GetStream();
             if (!await SendJoinMsgAsync(token))
             {
@@ -166,9 +168,11 @@ namespace BilibiliUtilities.Live
                                 {
                                     break;
                                 }
+
                                 json = JObject.Parse(jsonStr);
                                 _messageDispatcher.DispatchAsync(json, _messageHandler);
                             }
+
                             continue;
                         }
                         catch (Exception e)
@@ -192,6 +196,7 @@ namespace BilibiliUtilities.Live
                     Debug.WriteLine(e);
                     throw e;
                 }
+
                 if (!"DANMU_MSG".Equals(json["cmd"].ToString()) && !"SEND_GIFT".Equals(json["cmd"].ToString()))
                 {
                     _messageDispatcher.DispatchAsync(json, _messageHandler);
@@ -204,7 +209,7 @@ namespace BilibiliUtilities.Live
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<bool> SendJoinMsgAsync(string token)
+        private async Task<bool> SendJoinMsgAsync(string token)
         {
             var packageModel = new Dictionary<string, object>
             {
@@ -226,7 +231,7 @@ namespace BilibiliUtilities.Live
         /// <param name="action"></param>
         /// <param name="body"></param>
         /// <returns></returns>
-        public Task SendSocketDataAsync(int action, string body)
+        private Task SendSocketDataAsync(int action, string body)
         {
             return SendSocketDataAsync(ProtocolHeadLength, ProtocolVersion, action, 1, body);
         }
@@ -240,7 +245,7 @@ namespace BilibiliUtilities.Live
         /// <param name="param"></param>
         /// <param name="body"></param>
         /// <returns></returns>
-        public async Task SendSocketDataAsync(short headLength, short version, int action, int param,
+        private async Task SendSocketDataAsync(short headLength, short version, int action, int param,
             string body)
         {
             var data = Encoding.UTF8.GetBytes(body);
@@ -294,6 +299,7 @@ namespace BilibiliUtilities.Live
                 throw e;
             }
         }
+
 
         /// <summary>
         /// 关闭连接的方法
