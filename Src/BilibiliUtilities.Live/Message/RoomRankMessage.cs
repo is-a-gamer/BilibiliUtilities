@@ -1,6 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -36,7 +35,7 @@ namespace BilibiliUtilities.Live.Message
         /// </summary>
         public DateTime Time;
 
-        public static RoomRankMessage JsonToRoomRankMessage(JObject json)
+        public static RoomRankMessage JsonToRoomRankMessage(JsonData json)
         {
             return new RoomRankMessage
             {
@@ -46,7 +45,7 @@ namespace BilibiliUtilities.Live.Message
                 H5Url = json["data"]["h5_url"].ToString(),
                 WebUrl = json["data"]["web_url"].ToString(),
                 // Time = ,
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
 
@@ -54,9 +53,9 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                return JsonToRoomRankMessage(JObject.Parse(jsonStr));
+                return JsonToRoomRankMessage(JsonMapper.ToObject(jsonStr));
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

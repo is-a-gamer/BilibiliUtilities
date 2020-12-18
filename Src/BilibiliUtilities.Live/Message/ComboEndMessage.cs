@@ -1,6 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -52,7 +51,7 @@ namespace BilibiliUtilities.Live.Message
         /// </summary>
         public int GuardLevel;
 
-        public static ComboEndMessage JsonToComboEndMessage(JObject json)
+        public static ComboEndMessage JsonToComboEndMessage(JsonData json)
         {
             if (!"COMBO_SEND".Equals(json["cmd"].ToString()))
             {
@@ -70,7 +69,7 @@ namespace BilibiliUtilities.Live.Message
                 Price = int.Parse(data["gift_num"].ToString()),
                 GiftName = data["gift_name"].ToString(),
                 GiftId = int.Parse(data["gift_id"].ToString()),
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
 
@@ -78,10 +77,10 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                var json = JObject.Parse(jsonStr);
+                var json = JsonMapper.ToObject(jsonStr);
                 return JsonToComboEndMessage(json);
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

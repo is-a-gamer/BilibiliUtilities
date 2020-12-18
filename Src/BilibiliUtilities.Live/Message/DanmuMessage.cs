@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -55,7 +54,7 @@ namespace BilibiliUtilities.Live.Message
         {
         }
 
-        public static DanmuMessage JsonToDanmuMessage(JObject json)
+        public static DanmuMessage JsonToDanmuMessage(JsonData json)
         {
             if (!"DANMU_MSG".Equals(json["cmd"].ToString()))
             {
@@ -69,12 +68,12 @@ namespace BilibiliUtilities.Live.Message
                 var medalLevel = 0;
                 var medalOwnerName = "";
                 //判断有没有佩戴粉丝勋章
-                if (info[3].ToArray().Length != 0)
-                {
-                    medal = info[3][1].ToString();
-                    medalLevel = int.Parse(info[3][0].ToString());
-                    medalOwnerName = info[3][2].ToString();
-                }
+                // if (info[3].ToArray().Length != 0)
+                // {
+                //     medal = info[3][1].ToString();
+                //     medalLevel = int.Parse(info[3][0].ToString());
+                //     medalOwnerName = info[3][2].ToString();
+                // }
 
                 return new DanmuMessage
                 {
@@ -87,7 +86,7 @@ namespace BilibiliUtilities.Live.Message
                     Admin = info[2][2].ToString().Equals("1"),
                     Vip = info[2][3].ToString().Equals("1"),
                     UserGuardLevel = int.Parse(info[7].ToString()),
-                    Metadata = JsonConvert.SerializeObject(json)
+                    Metadata = JsonMapper.ToJson(json)
                 };
             }
             catch (ArgumentOutOfRangeException e)
@@ -101,10 +100,10 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                var json = JObject.Parse(jsonStr);
+                var json = JsonMapper.ToObject(jsonStr);
                 return JsonToDanmuMessage(json);
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

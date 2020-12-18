@@ -1,6 +1,5 @@
 using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -43,7 +42,7 @@ namespace BilibiliUtilities.Live.Message
         /// </summary>
         public string CopyWriting;
 
-        public static EntryEffectMessage JsonToEntryEffectMessage(JObject json)
+        public static EntryEffectMessage JsonToEntryEffectMessage(JsonData json)
         {
             if (!"ENTRY_EFFECT".Equals(json["cmd"].ToString()))
             {
@@ -60,7 +59,7 @@ namespace BilibiliUtilities.Live.Message
                 FaceUrl = data["face"].ToString(),
                 PrivilegeType = int.Parse(data["privilege_type"].ToString()),
                 CopyWriting = data["copy_writing"].ToString(),
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
 
@@ -68,10 +67,10 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                var json = JObject.Parse(jsonStr);
+                var json = JsonMapper.ToObject(jsonStr);
                 return JsonToEntryEffectMessage(json);
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

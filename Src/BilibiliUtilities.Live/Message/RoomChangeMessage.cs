@@ -1,6 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -31,7 +30,7 @@ namespace BilibiliUtilities.Live.Message
         /// </summary>
         public string ParentAreaName;
 
-        public static RoomChangeMessage JsonToRoomChangeMessage(JObject json)
+        public static RoomChangeMessage JsonToRoomChangeMessage(JsonData json)
         {
             return new RoomChangeMessage
             {
@@ -40,7 +39,7 @@ namespace BilibiliUtilities.Live.Message
                 ParentAreaId = int.Parse(json["data"]["parent_area_id"].ToString()),
                 AreaName = json["data"]["area_name"].ToString(),
                 ParentAreaName = json["data"]["parent_area_name"].ToString(),
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
 
@@ -48,9 +47,9 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                return JsonToRoomChangeMessage(JObject.Parse(jsonStr));
+                return JsonToRoomChangeMessage(JsonMapper.ToObject(jsonStr));
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

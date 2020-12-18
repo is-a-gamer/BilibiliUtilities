@@ -1,6 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -21,23 +20,23 @@ namespace BilibiliUtilities.Live.Message
         /// </summary>
         public int RedNotice;
 
-        public static RoomUpdateMessage JsonToRoomUpdateMessage(JObject json)
+        public static RoomUpdateMessage JsonToRoomUpdateMessage(JsonData json)
         {
             return new RoomUpdateMessage
             {
                 RoomId = int.Parse(json["data"]["roomid"].ToString()),
                 Fans = int.Parse(json["data"]["fans"].ToString()),
                 RedNotice = int.Parse(json["data"]["red_notice"].ToString()),
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
         public static RoomUpdateMessage JsonToRoomUpdateMessage(string jsonStr)
         {
             try
             {
-                return JsonToRoomUpdateMessage(JObject.Parse(jsonStr));
+                return JsonToRoomUpdateMessage(JsonMapper.ToObject(jsonStr));
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

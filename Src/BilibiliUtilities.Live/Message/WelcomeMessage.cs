@@ -1,6 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -50,7 +49,7 @@ namespace BilibiliUtilities.Live.Message
          }
          */
 
-        public static WelcomeMessage JsonToWelcomeMessage(JObject json)
+        public static WelcomeMessage JsonToWelcomeMessage(JsonData json)
         {
             if (!"WELCOME".Equals(json["cmd"].ToString()))
             {
@@ -66,7 +65,7 @@ namespace BilibiliUtilities.Live.Message
                 Svip = int.Parse(data["svip"].ToString()),
                 Vip = int.Parse(data["vip"].ToString()),
                 MockEffect = int.Parse(data["mock_effect"].ToString()),
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
 
@@ -74,10 +73,10 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                var json = JObject.Parse(jsonStr);
+                var json = JsonMapper.ToObject(jsonStr);
                 return JsonToWelcomeMessage(json);
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

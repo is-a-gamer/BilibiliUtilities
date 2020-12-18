@@ -1,6 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -26,7 +25,7 @@ namespace BilibiliUtilities.Live.Message
         /// </summary>
         public int MockEffect;
 
-        public static WelcomeGuardMessage JsonToWelcomeGuardMessage(JObject json)
+        public static WelcomeGuardMessage JsonToWelcomeGuardMessage(JsonData json)
         {
             return new WelcomeGuardMessage
             {
@@ -34,7 +33,7 @@ namespace BilibiliUtilities.Live.Message
                 Username = json["data"]["username"].ToString(),
                 GuardLevel = int.Parse(json["data"]["guard_level"].ToString()),
                 MockEffect = int.Parse(json["data"]["mock_effect"].ToString()),
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
         
@@ -42,10 +41,10 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                var json = JObject.Parse(jsonStr);
+                var json = JsonMapper.ToObject(jsonStr);
                 return JsonToWelcomeGuardMessage(json);
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

@@ -8,9 +8,7 @@ using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
+using LitJson;
 namespace BilibiliUtilities.Utils.LiveUtils
 {
     public class RoomUtil
@@ -19,7 +17,7 @@ namespace BilibiliUtilities.Utils.LiveUtils
 
         public static async Task<int> GetLongRoomId(long shortRoomId)
         {
-            var tmpData = JObject.Parse(await _httpClient.GetStringAsync($"https://api.live.bilibili.com/room/v1/Room/room_init?id={shortRoomId}"));
+            var tmpData = JsonMapper.ToObject(await _httpClient.GetStringAsync($"https://api.live.bilibili.com/room/v1/Room/room_init?id={shortRoomId}"));
             if (int.Parse(tmpData["code"].ToString())!=0)
             {
                 return 0;
@@ -29,13 +27,13 @@ namespace BilibiliUtilities.Utils.LiveUtils
 
         public static async Task<string> GetRoomTokenByShortRoomId(long shortRoomId)
         {
-            var tmpData = JObject.Parse(await _httpClient.GetStringAsync($"https://api.live.bilibili.com/room/v1/Room/room_init?id={shortRoomId}"));
+            var tmpData = JsonMapper.ToObject(await _httpClient.GetStringAsync($"https://api.live.bilibili.com/room/v1/Room/room_init?id={shortRoomId}"));
             if (int.Parse(tmpData["code"].ToString()) != 0)
             {
                 return "";
             }
             var roomId = int.Parse(tmpData["data"]["room_id"].ToString());
-            tmpData = JObject.Parse(await _httpClient.GetStringAsync(
+            tmpData = JsonMapper.ToObject(await _httpClient.GetStringAsync(
                 $"https://api.live.bilibili.com/room/v1/Danmu/getConf?room_id={roomId}&platform=pc&player=web"));
             //连接的令牌
             var token = tmpData["data"]["token"].ToString();
@@ -49,7 +47,7 @@ namespace BilibiliUtilities.Utils.LiveUtils
             {
                 return false;
             }
-            var tmpData = JObject.Parse(await _httpClient.GetStringAsync(
+            var tmpData = JsonMapper.ToObject(await _httpClient.GetStringAsync(
                 $"https://api.live.bilibili.com/room/v1/Danmu/getConf?room_id={roomId}&platform=pc&player=web"));
             //解析域名,拿取IP地址,用于连接
             var chatHost = tmpData["data"]["host"].ToString();

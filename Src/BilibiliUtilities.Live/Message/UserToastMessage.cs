@@ -1,6 +1,5 @@
 using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -60,7 +59,7 @@ namespace BilibiliUtilities.Live.Message
 
         public string ToastMsg;
 
-        public static UserToastMessage JsonToUserToastMessage(JObject json)
+        public static UserToastMessage JsonToUserToastMessage(JsonData json)
         {
             if (!"USER_TOAST_MSG".Equals(json["cmd"].ToString()))
             {
@@ -79,7 +78,7 @@ namespace BilibiliUtilities.Live.Message
                 RoleName = data["role_name"].ToString(),
                 Unit = data["unit"].ToString(),
                 ToastMsg = data["toast_msg"].ToString(),
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
 
@@ -87,10 +86,10 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                var json = JObject.Parse(jsonStr);
+                var json = JsonMapper.ToObject(jsonStr);
                 return JsonToUserToastMessage(json);
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

@@ -1,6 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -59,7 +58,7 @@ namespace BilibiliUtilities.Live.Message
         /// </summary>
         public long TotalCoin;
 
-        public static GiftMessage JsonToGiftMessage(JObject json)
+        public static GiftMessage JsonToGiftMessage(JsonData json)
         {
             if (!"SEND_GIFT".Equals(json["cmd"].ToString()))
             {
@@ -78,7 +77,7 @@ namespace BilibiliUtilities.Live.Message
                 Price = long.Parse(data["price"] + ""),
                 TotalCoin = long.Parse(data["total_coin"] + ""),
                 CoinType = data["coin_type"] + "",
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
 
@@ -86,10 +85,10 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                var json = JObject.Parse(jsonStr);
+                var json = JsonMapper.ToObject(jsonStr);
                 return JsonToGiftMessage(json);
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

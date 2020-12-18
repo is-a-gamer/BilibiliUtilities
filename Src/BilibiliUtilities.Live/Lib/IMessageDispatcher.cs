@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Lib
 {
@@ -20,6 +20,6 @@ namespace BilibiliUtilities.Live.Lib
         /// <param name="message"></param>
         /// <param name="messageHandler"></param>
         /// <returns></returns>
-        Task DispatchAsync(JObject message,IMessageHandler messageHandler);
+        Task DispatchAsync(JsonData message,IMessageHandler messageHandler);
     }
 }

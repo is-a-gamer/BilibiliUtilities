@@ -8,10 +8,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using BilibiliUtilities.Live.Lib;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using BilibiliUtilities.Utils.LiveUtils;
-
+using LitJson;
 namespace BilibiliUtilities.Live
 {
     public class LiveRoom
@@ -95,7 +93,7 @@ namespace BilibiliUtilities.Live
             var dataBuffer = new byte[danmuHead.PacketLength - danmuHead.HeaderLength];
             await _roomStream.ReadAsync(dataBuffer, 0, danmuHead.MessageLength());
             var s = Encoding.Default.GetString(dataBuffer);
-            var data = JObject.Parse(s);
+            var data = JsonMapper.ToObject(s);
             if (int.Parse(data["code"].ToString()) != 0)
             {
                 return false;
@@ -141,7 +139,7 @@ namespace BilibiliUtilities.Live
                 }
 
                 string tmpData;
-                JObject json = null;
+                JsonData json = null;
                 if (danmuHead.Action == 5 && danmuHead.Version == ProtocolVersion)
                 {
                     //有效负载为礼物、弹幕、公告等内容数据
@@ -169,7 +167,7 @@ namespace BilibiliUtilities.Live
                                     break;
                                 }
 
-                                json = JObject.Parse(jsonStr);
+                                json = JsonMapper.ToObject(jsonStr);
                                 _messageDispatcher.DispatchAsync(json, _messageHandler);
                             }
 
@@ -189,7 +187,7 @@ namespace BilibiliUtilities.Live
                 tmpData = Encoding.UTF8.GetString(dataBuffer);
                 try
                 {
-                    json = JObject.Parse(tmpData);
+                    json = JsonMapper.ToObject(tmpData);
                 }
                 catch (Exception e)
                 {
@@ -220,7 +218,7 @@ namespace BilibiliUtilities.Live
                 {"platform", "web"},
                 {"type", 2}
             };
-            var body = JsonConvert.SerializeObject(packageModel);
+            var body = JsonMapper.ToJson(packageModel);
             await SendSocketDataAsync(7, body);
             return true;
         }

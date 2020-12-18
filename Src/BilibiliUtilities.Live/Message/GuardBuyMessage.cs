@@ -1,6 +1,5 @@
 using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Message
 {
@@ -47,7 +46,7 @@ namespace BilibiliUtilities.Live.Message
         /// </summary>
         public string GiftName;
 
-        public static GuardBuyMessage JsonToGuardBuyMessage(JObject json)
+        public static GuardBuyMessage JsonToGuardBuyMessage(JsonData json)
         {
             if (!"GUARD_BUY".Equals(json["cmd"].ToString()))
             {
@@ -64,7 +63,7 @@ namespace BilibiliUtilities.Live.Message
                 Price = int.Parse(data["price"].ToString()),
                 RoleName = data["role_name"].ToString(),
                 GiftName = data["gift_name"].ToString(),
-                Metadata = JsonConvert.SerializeObject(json)
+                Metadata = JsonMapper.ToJson(json)
             };
         }
 
@@ -72,10 +71,10 @@ namespace BilibiliUtilities.Live.Message
         {
             try
             {
-                var json = JObject.Parse(jsonStr);
+                var json = JsonMapper.ToObject(jsonStr);
                 return JsonToGuardBuyMessage(json);
             }
-            catch (JsonReaderException)
+            catch (Exception)
             {
                 throw new AggregateException("JSON字符串没有成功转换成Json对象");
             }

@@ -14,11 +14,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net471'" />
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net471'" />
+      <PackageReference Include="LitJson" Version="0.16.0" />
     </ItemGroup>
 
 </Project>

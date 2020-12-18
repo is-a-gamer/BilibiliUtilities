@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using BilibiliUtilities.Live.Message;
-using Newtonsoft.Json.Linq;
+using LitJson;
 
 namespace BilibiliUtilities.Live.Lib
 {
     public class MessageDispatcher : IMessageDispatcher
     {
-        public async Task DispatchAsync(JObject message, IMessageHandler messageHandler)
+        public async Task DispatchAsync(JsonData message, IMessageHandler messageHandler)
         {
             try
             {
