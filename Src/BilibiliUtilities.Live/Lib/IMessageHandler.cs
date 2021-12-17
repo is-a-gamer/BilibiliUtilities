@@ -69,6 +69,12 @@ namespace BilibiliUtilities.Live.Lib
         /// <returns></returns>
         Task LiveStopMessageHandlerAsync(int roomId);
         /// <summary>
+        /// 进入直播间
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        Task InteractWordMessageHandlerAsync(InteractWordMessage message);
+        /// <summary>
         /// 舰长,提督,总督进入房间的通知
         /// </summary>
         /// <param name="entryEffectMessage"></param>

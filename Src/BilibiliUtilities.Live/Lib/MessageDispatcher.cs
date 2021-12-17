@@ -89,8 +89,7 @@ namespace BilibiliUtilities.Live.Lib
                         await messageHandler.LiveStopMessageHandlerAsync(int.Parse(message["roomid"].ToString()));
                         break;
                     case "INTERACT_WORD":
-                        Debug.WriteLine("INTERACT_WORD");
-                        // Debug.WriteLine(message);                        
+                        await messageHandler.InteractWordMessageHandlerAsync(InteractWordMessage.JsonToInteractWordMessage(message));
                         break;
                     case "ONLINERANK": //更新排行榜信息
                         Debug.WriteLine("ONLINERANK");

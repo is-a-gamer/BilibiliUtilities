@@ -79,5 +79,13 @@ namespace BilibiliUtilities.Test.LiveLib
         {
             Console.WriteLine($"{userToastMessage.Username}购买了{userToastMessage.Num}{userToastMessage.Unit}的{userToastMessage.RoleName}");
         }
+
+        public async Task InteractWordMessageHandlerAsync(InteractWordMessage message)
+        {
+            if (!string.IsNullOrEmpty(message.Medal))
+                Console.WriteLine($"{message.Medal}.{message.MedalLevel}  {message.Username} 进入直播间");
+            else
+                Console.WriteLine($"{message.Username} 进入直播间");
+        }
     }
 }
